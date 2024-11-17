@@ -11,7 +11,7 @@ import book1 from './pig.jpg';
 import book2 from './redhat.jpg';
 import book3 from './princess.jpg';
 import book4 from './drinkwater.jpg';
-import book5 from './tiger.jpg';
+import book5 from './Duck.png';
 import book6 from './man.jpg';
 
 function App() {
@@ -127,9 +127,9 @@ function App() {
                               <section className="box">
                                 <a href="#" className="image featured"><img src={book5} alt="" /></a>
                                 <header>
-                                  <h3>虎姑婆</h3>
+                                  <h3>醜小鴨</h3>
                                 </header>
-                                <p>《虎姑婆》是一個流傳於華人社會的民間故事，講述了兩姐弟被父母單獨留在家中時，一隻假扮成老婦人的老虎來敲門，謊稱自己是他們的姑婆，想進屋吃掉他們。機靈的姐姐察覺到虎姑婆的異樣，在夜裡設法保護弟弟並用計逃脫。最後，兩姐弟成功逃離虎姑婆的魔掌，避免了危險。</p>
+                                <p>故事描述了一隻與眾不同的小鴨，從誕生起就因外貌被排擠與嘲笑，甚至被稱為「醜小鴨」。儘管鴨媽媽對牠充滿愛，但牠選擇離開池塘，開始了一段孤獨的流浪之旅。在這期間，醜小鴨經歷了寒冬的考驗，最終在春天發現自己並非小鴨，而是一隻美麗的白天鵝，並且找到了真正的歸屬與朋友。</p>
                                 <footer>
                                   <ul className="actions">
                                     <li>

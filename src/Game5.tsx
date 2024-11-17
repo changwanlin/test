@@ -1,100 +1,60 @@
-import { useState } from "react";
-import { Link } from "react-router-dom"; // 用於導航
-import "./Game.css";
+import { useState } from 'react';
+import { Link } from 'react-router-dom'; // 用於導航
+import './Game5.css';
 
 const scenes = [
   {
     id: 1,
-    text: "夜晚，兩個小孩獨自在家，媽媽出遠門了，叮囑孩子們不要開門給陌生人。突然，門外傳來敲門聲，一個聲音說：“我是你們的姑婆，快開門！”你會怎麼做？",
+    text: '春天的池塘邊，鴨媽媽正在孵著蛋，不久後所有的小鴨寶寶都誕生了，但有一顆特別不一樣的蛋，一直都沒有孵出來。過了好幾天，這顆不一樣的蛋終於孵化了，出現了一隻與眾不同的小鴨，大家都嘲笑牠是「醜小鴨」。你的選擇是？',
     options: [
-      { text: "開門讓她進來", nextSceneId: 2 },
-      { text: "不開門，繼續觀察", nextSceneId: 3 },
+      { text: '接受嘲笑並試圖融入', nextSceneId: 2 },
+      { text: '選擇離開池塘流浪', nextSceneId: 3 },
     ],
   },
   {
     id: 2,
-    text: "你開門讓虎姑婆進來，她看起來像一個慈祥的老人，但身上散發著奇怪的氣味。她說：“孩子們，來，我給你們講故事。”",
+    text: '你試圖融入其他小鴨的生活，但牠們始終排擠你。鴨媽媽試著保護你，但你仍感到孤單。',
     options: [
-      { text: "聽她講故事", nextSceneId: 4 },
-      { text: "感到不安，決定關心她的來歷", nextSceneId: 5 },
+      { text: '選擇離開池塘開始流浪', nextSceneId: 3 },
+      { text: '決定留在池塘忍受孤獨', nextSceneId: 4 },
     ],
   },
   {
     id: 3,
-    text: "你沒有開門，門外的聲音變得不耐煩了：“快開門，不然我進不來會很傷心啊！”你會怎麼做？",
+    text: '你開始了漫長的流浪旅程，途中經歷了寒冷的冬天，幾乎失去希望。但你堅持下去，尋找自己的歸屬。',
     options: [
-      { text: "繼續不開門", nextSceneId: 6 },
-      { text: "假裝打電話給媽媽", nextSceneId: 7 },
+      { text: '繼續流浪，尋找新的池塘', nextSceneId: 5 },
+      { text: '選擇在洞穴中度過寒冬', nextSceneId: 6 },
     ],
   },
   {
     id: 4,
-    text: "她開始講故事，但你注意到她的眼睛一直盯著你們，並且她的指甲看起來像爪子。你感到越來越不對勁。",
-    options: [
-      { text: "詢問她的真實身份", nextSceneId: 8 },
-      { text: "偷偷通知隔壁的鄰居", nextSceneId: 9 },
-    ],
+    text: '你選擇留在池塘忍受孤獨。雖然孤單，但你學會了如何在逆境中成長。最終你找到了自己的價值。',
+    options: [],
   },
   {
     id: 5,
-    text: "你問她為什麼來訪，虎姑婆回答：“我是專程來看你們的，怕你們害怕。”但她的笑容越來越詭異。",
+    text: '你來到一片新的池塘，遇到了一群天鵝。牠們友善地接納了你，讓你感到溫暖和歸屬感。',
     options: [
-      { text: "進一步追問", nextSceneId: 8 },
-      { text: "以肚子痛為由離開房間", nextSceneId: 10 },
+      { text: '嘗試融入天鵝群', nextSceneId: 7 },
+      { text: '害怕再次被拒絕，選擇離開', nextSceneId: 8 },
     ],
   },
   {
     id: 6,
-    text: "你繼續不開門，門外的聲音變得暴躁，虎姑婆開始用爪子抓門，聲音嚇得你們直發抖。",
+    text: '在洞穴中度過寒冬後，春天來臨了。你走出了洞穴，看到湖面上倒映的身影，發現自己已經長成了一隻美麗的天鵝！',
     options: [
-      { text: "藏在衣櫃裡", nextSceneId: 11 },
-      { text: "從窗戶逃出去", nextSceneId: 12 },
+      { text: '接受自己的新身份，加入天鵝群', nextSceneId: 7 },
     ],
   },
   {
     id: 7,
-    text: "你假裝打電話給媽媽，門外的聲音突然安靜了一會兒，但接著變得更加詭異：“打電話也沒用，我可是虎姑婆！”",
-    options: [
-      { text: "求助鄰居", nextSceneId: 13 },
-      { text: "藏在床底下", nextSceneId: 11 },
-    ],
+    text: '你終於找到了自己的歸屬。天鵝群歡迎你的加入，你學會了接受自己，也找到了屬於自己的朋友。',
+    options: [],
   },
   {
     id: 8,
-    text: "你直接問她的真實身份，虎姑婆突然變回原形，露出鋒利的牙齒，準備撲向你們！",
-    options: [
-      { text: "尖叫求助", nextSceneId: 13 },
-      { text: "拿起家中的掃帚防身", nextSceneId: 14 },
-    ],
-  },
-  {
-    id: 9,
-    text: "你偷偷通知了隔壁鄰居，鄰居迅速趕來，用一根棍子把虎姑婆趕走了。你們平安無事。",
-    options: [],
-  },
-  {
-    id: 10,
-    text: "你以肚子痛為由離開房間，偷偷從後門溜出去，成功逃到鄰居家求助。",
-    options: [],
-  },
-  {
-    id: 11,
-    text: "你藏在衣櫃裡，但虎姑婆嗅著氣味找到了你們。危急時刻，鄰居聽到聲音趕來救了你們。",
-    options: [],
-  },
-  {
-    id: 12,
-    text: "你們從窗戶逃出去，跑向鄰居家。鄰居得知後立即報警，虎姑婆被警察趕走了。",
-    options: [],
-  },
-  {
-    id: 13,
-    text: "你大聲尖叫，鄰居聽到後趕來，虎姑婆被趕跑，你們最終得救了。",
-    options: [],
-  },
-  {
-    id: 14,
-    text: "你拿起掃帚勇敢反抗，虎姑婆沒有防備，被你趕出門外。你們安全了。",
+    text: '你選擇了離開天鵝群，但心中仍感到遺憾。未來的日子裡，你決定用行動證明自己的價值，並努力成為更好的自己。',
     options: [],
   },
 ];
@@ -104,9 +64,9 @@ const Game5 = () => {
 
   const currentScene = scenes.find((scene) => scene.id === currentSceneId);
 
-  const handleOptionClick = (nextSceneId) => {
+  const handleOptionClick = (nextSceneId?: number) => {
     if (!nextSceneId) {
-      alert("故事結束，感謝遊玩！");
+      alert('故事結束，感謝遊玩！');
     } else {
       setCurrentSceneId(nextSceneId);
     }
@@ -120,19 +80,27 @@ const Game5 = () => {
           回首頁
         </Link>
       </div>
+
+      {/* 當前場景內容 */}
       {currentScene ? (
         <div className="scene">
           <p>{currentScene.text}</p>
           <div className="options">
             {currentScene.options.map((option, index) => (
-              <button key={index} onClick={() => handleOptionClick(option.nextSceneId)}>
+              <button
+                key={index}
+                className="option-button"
+                onClick={() => handleOptionClick(option.nextSceneId)}
+              >
                 {option.text}
               </button>
             ))}
           </div>
         </div>
       ) : (
-        <div>感謝遊玩！</div>
+        <div className="end-message">
+          <p>感謝遊玩！</p>
+        </div>
       )}
     </div>
   );
