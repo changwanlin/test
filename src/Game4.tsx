@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"; // 用於導航
 import "./Game4.css";
 
 const scenes = [
@@ -83,7 +84,7 @@ const Game4 = () => {
 
     if (itemElement && itemElement.classList.contains("stone")) {
       setStonesAdded((prev) => prev + 1); // 增加石頭數量
-      setWaterLevel((prev) => Math.min(prev + 20, maxWaterLevel)); // 增加水位但限制最大值
+      setWaterLevel((prev) => Math.min(prev + 25, maxWaterLevel)); // 增加水位但限制最大值
       itemElement.style.display = "none"; // 隱藏石頭
 
       // 檢查是否達到足夠的水位
@@ -101,6 +102,11 @@ const Game4 = () => {
 
   return (
     <div className="game">
+      <div className="back-home">
+        <Link to="/" className="back-button">
+          回首頁
+        </Link>
+      </div>
       <h1>烏鴉喝水</h1>
       {currentScene ? (
         <div className="scene">
